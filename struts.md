@@ -15,8 +15,8 @@ web.xml,web.xml下配置了一个Struts核心Filter，叫做StrutsPrepareAndExec
 
    当他接收到url请求后，他首先寻找namespace=“/”，然后就会查找“/”后对应的hello然后他就会去package下寻找有没有name=hello 的action，有的话，找到对应的result是谁-----hello.jsp
 ### 通配符调用
-   >如果不管用，一定是没有用这个：<global-allowed-methods>regex:.`*</global-allowed-methods> 或者<allowd-methods>
-请求转发： chain`
+   >如果不管用，一定是没有用这个：<global-allowed-methods>regex:.\`*</global-allowed-methods> 或者<allowd-methods>
+请求转发： chain
 
 ### 修改参数标签的顺序
    >struts 依次向下查找，查找顺序为：1：struts-default.xml   2:struts-plugin.xml   3:struts.xml   4:srtuts.propreties
