@@ -33,7 +33,11 @@ MethodFilterInterceptor里面有两个
 如果写一个自定义的拦截器，要先写一个类，然后根据需要实现interceptor接口，也可以继承AbstractInterceptor类或者MethodFilterInterceptor
 如果第三个就要实现doInterceptor方法。tring result = invocation.invoke();  //invoke 是一个分水岭，在这个方法执行之前，都是在action调用之前执行。
 
-
+```sequence
+Alice->Bob: Hello Bob, how are you?
+Note right of Bob: Bob thinks
+Bob-->Alice: I am good thanks!
+```
 
 
 
