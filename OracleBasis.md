@@ -8,9 +8,18 @@
     >4.查看用户对象权限：select * from dba_tab_privs;select * from all_tab_privs;select * from user_tab_privs;
     >5.查看所有角色：select * from dba_roles;
     >6.查看用户或角色所拥有的角色：select * from dba_role_privs;select * from user_role_privs;
-    >7.查看哪些用户有sysdba或sysoper系统权限(查询时需要相应权限)select * from V$PWFILE_USERS比如我要查看用户 wzsb的拥有的权限：SQL> select * from dba_sys_privs where grantee='WZSB';GRANTEE PRIVILEGE ADMIN_OPTION
+    >7.查看哪些用户有sysdba或sysoper系统权限(查询时需要相应权限)select * from V$PWFILE_USERS
+    >比如我要查看用户 wzsb的拥有的权限：SQL> select * from dba_sys_privs where grantee='WZSB';GRANTEE PRIVILEGE ADMIN_OPTION
     ------------------------------ ---------------------------------------- ------------
     WZSB CREATE TRIGGER NOWZSB UNLIMITED TABLESPACE NO
     >比如我要查看用户 wzsb的拥有的角色：SQL> select * from dba_role_privs where grantee='WZSB';GRANTEE GRANTED_ROLE ADMIN_OPTION DEFAULT_ROLE
     ------------------------------ ------------------------------ ------------ ------------
     WZSB DBA NO YES
+    查看一个用户所有的权限及角色
+    select privilege from dba_sys_privs where grantee='WZSB' union select privilege from dba_sys_privs where grantee in (select
+    granted_role from dba_role_privs where grantee='WZSB' );
+    
+    
+
+   
+   
