@@ -7,7 +7,7 @@ layout: default
     <div class="aside">
       <div class="info-card">
         <h1>白青标</h1>
-        <a href="https://github.com/sunzhensky" target="_blank"><img src="https://github.com/favicon.ico" alt="" width="22"/></a>
+        <a href="https://github.com/baiqingbiao" target="_blank"><img src="https://github.com/favicon.ico" alt="" width="22"/></a>
         <a href="tencent://message/?uin=372728556&Site=QQ交谈&Menu=yes" target="_blank"><img src="https://im.qq.com/favicon.ico" alt="" width="22"/></a>
       </div>
       <div id="particles-js"></div>
