@@ -50,10 +50,10 @@ category: blog
  - 造成内存浪费的缺点怎那么解决：
 ##### 懒汉式单例
 ```
-  \/**
+  /**
   *优点：节省内存
   *缺点：可能会线程不安全（多个线程同时判断实例为空，同时new，这时候就创建了多个实例，可使用多线程测试）
-  *\/
+  */
  public class LazySimpleSingleton{
     private static LazySimpleSingleton instance;//初始化不赋值/不占内存空间
     private LazySimpleSingleton();
