@@ -17,8 +17,8 @@ category: blog
  - 懒汉式单例
  - 注册时单例
  - ThreadLocal单例
- ##### 饿汉式单例
- ```
+##### 饿汉式单例
+```
  /**
   *优点：性能高、执行效率高、没有任何锁
   *缺点：某些情况下，可能会造成内存浪费
@@ -28,10 +28,10 @@ category: blog
     private HungrySingleton(){}
     public static HungrySingleton getInstance(){return hungrySingleton}
  }
- ```
+```
  另一种写法：<br>
  
- ```
+```
   /**
   *先静态后动态
   *先上，后下
@@ -46,10 +46,10 @@ category: blog
     private HungrySingleton(){}
     public static HungrySingleton getInstance(){return hungrySingleton}
  }
- ```
+```
  - 造成内存浪费的缺点怎那么解决：
- ##### 懒汉式单例
- ```
+##### 懒汉式单例
+```
   \/**
   *优点：节省内存
   *缺点：可能会线程不安全（多个线程同时判断实例为空，同时new，这时候就创建了多个实例，可使用多线程测试）
@@ -66,4 +66,4 @@ category: blog
     }
     
  }
- ```
+```
