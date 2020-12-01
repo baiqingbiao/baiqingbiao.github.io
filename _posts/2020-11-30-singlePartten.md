@@ -7,17 +7,17 @@ category: blog
 
 ### 单例模式
 #### 定义
-- 确保一个类在任何情况下都只有一个实例，并提供一个全局访问点；
-- 隐藏其所有的构造方法；
-- 属于创建型模式
+  * 确保一个类在任何情况下都只有一个实例，并提供一个全局访问点；
+  * 隐藏其所有的构造方法；
+  * 属于创建型模式
 #### 单例模式的适用场景
-- 确保任何情况下都只有一个实例
+  * 确保任何情况下都只有一个实例
 #### 单例模式的常见写法
- - 饿汉式单例
- - 懒汉式单例
- - 注册时单例
- - ThreadLocal单例
-##### 饿汉式单例
+  * 饿汉式单例
+  * 懒汉式单例
+  * 注册时单例
+  * ThreadLocal单例
+##### 饿汉式单例  
 ```
  /**
   *优点：性能高、执行效率高、没有任何锁
@@ -29,8 +29,7 @@ category: blog
     public static HungrySingleton getInstance(){return hungrySingleton}
  }
 ```
- 另一种写法：<br>
- 
+ 另一种写法：  
 ```
   /**
   *先静态后动态
@@ -46,9 +45,9 @@ category: blog
     private HungrySingleton(){}
     public static HungrySingleton getInstance(){return hungrySingleton}
  }
-```
- - 造成内存浪费的缺点怎那么解决：
-##### 懒汉式单例
+```  
+    造成内存浪费的缺点怎那么解决：
+##### 懒汉式单例  
 ```
   /**
   *优点：节省内存
@@ -64,6 +63,5 @@ category: blog
         }
         return instance;
     }
-    
  }
 ```
