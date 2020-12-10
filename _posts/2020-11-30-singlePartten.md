@@ -96,6 +96,8 @@ public class SingletonTest {
     2. 实例相同，第二个把第一个覆盖掉了（此时都进入了判断，创建了两个实例，但都未打印）；
     3. 实例不相同，创建了两个；
 那么这个时候，2和3就是不安全的了，如何解决这个问题呢，就要使用线程锁：
+
+
 ```
  public class LazySimpleSingleton{
     private static LazySimpleSingleton instance;
@@ -109,6 +111,7 @@ public class SingletonTest {
     }
  }
 ```
+
 优点：节省了内存的消耗，保证了线程安全  
 缺点：性能低，受到了限制  
 问题：如何解决synchronized关键字的性能问题?  

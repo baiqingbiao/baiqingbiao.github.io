@@ -73,7 +73,9 @@ public class CourseBuilder implements ICourseBuilder{
     }
 }
 ```
-好了那么创建完之后，编写测试类：
+
+好了那么创建完之后，编写测试类：  
+
 ```
 public class Test {
     public static void main(String[] args) {
@@ -86,12 +88,17 @@ public class Test {
 
 }
 ```
+
 执行结果：
+
+  
 ```
 Course{name='null', ppt='演讲', video='看视频', note='null', homework='写代码'}
 ```
+
 其实呢，这种建造者模式并不常见，因为我们在连续的操作courseBuilder，如果这个变量很多，写起来就会非常麻烦，所以这里是一个优化的点。
 那么优化写法就是链式写法，稍微改造一下，赋值方法完成之后返回this：
+
 ```
 public class CourseBuilder implements ICourseBuilder {
     private Course course = new Course();
@@ -125,7 +132,9 @@ public class CourseBuilder implements ICourseBuilder {
     }
 }
 ```
+
 改造测试类：
+
 ```
 public class Test {
     public static void main(String[] args) {
@@ -138,4 +147,5 @@ public class Test {
 
 }
 ```
+
 在建造者模式中，链式编程应用的非常广泛，非常巧妙。自始至终都在操作这个courseBuilder，那么就在每一步完成之后将courseBuilder返回；

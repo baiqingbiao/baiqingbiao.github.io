@@ -89,6 +89,7 @@ ConcreteProtoyype{age=18, name='huyawen'}
  其中原型模式又分为浅克隆和深克隆：
 ##### 1. 浅克隆：实现Cloneable接口：
  
+   
 ```
 @Data
 public class ConcreteProtoyype implements Cloneable{
@@ -290,17 +291,18 @@ false
 ```
 发现这里两个对象不同，所以单例被破坏了。。。那么如何解决？  
   * 不实现Cloneable接口；（注意：**单例模式不能实现Cloneable接口**）
-  * 
-  ```
+    
+```
   @Override
     public ConcreteProtoyype clone() {
         return instance;
     }
-  ```
+```
  此时又变回了原型模式，没错，**原型和单例本身就是冲突的！！**，这种理论客观上就不存在。。
  作为一名架构师，要考虑代码的风险，要规避任何可能发生的情况，要防患于未来！
- 有兴趣可以看一下JDK源码中的ArrayListClone方式：
- ```
+ 有兴趣可以看一下JDK源码中的  
+ArrayListClone方式：
+```
      public Object clone() {
         try {
             ArrayList var1 = (ArrayList)super.clone();
@@ -311,13 +313,13 @@ false
             throw new InternalError(var2);
         }
     }
- ```
- ```
+```
+```
      public static <T> T[] copyOf(T[] original, int newLength) {
         return (T[]) copyOf(original, newLength, original.getClass());
     }
- ```
- ```
+```
+```
      public static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
         @SuppressWarnings("unchecked")
         T[] copy = ((Object)newType == (Object)Object[].class)
@@ -327,10 +329,10 @@ false
                          Math.min(original.length, newLength));
         return copy;
     }
- ```
+```
  
- HashMap：
- ```
+HashMap：
+```
      public Object clone() {
         HashMap var1;
         try {
@@ -343,8 +345,8 @@ false
         var1.putMapEntries(this, false);
         return var1;
     }
- ```
- ```
+```
+```
      void reinitialize() {
         this.table = null;
         this.entrySet = null;
@@ -379,9 +381,9 @@ false
             }
         }
     }
- ```
+```
  用这种方式改造一下我们的代码：
- ```
+```
      public ConcreteProtoyype deepCloneHobbies() {
         try{
             ConcreteProtoyype result = (ConcreteProtoyype)super.clone();
@@ -392,30 +394,30 @@ false
             return null;
         }
     }
- ```
+```
  客户端调用：
- ```
+```
  ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.deepCloneHobbies();
- ```
+```
  结果：
- ```
+```
 原型对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎]}
 克隆对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
 false
 原型对象的爱好：[吃, 睡, 拉屎]
 克隆对象的爱好：[吃, 睡, 拉屎, 学习]
 false
- ```
+```
 ### 总结
-   1. 只要是Cloneable接口下的都是浅克隆：ArrayList看似为深克隆，假设ArrayList里有引用类型呢？
-   2. 怎么做才能实现深克隆：
+   *. 只要是Cloneable接口下的都是浅克隆：ArrayList看似为深克隆，假设ArrayList里有引用类型呢？
+   *. 怎么做才能实现深克隆：
           * 序列化
           * 转Json
-   3. 如果不是架构师没必要了解原型模式，因为用不到；（apach.lang.util包；jdk实现了浅克隆；spring）
+   *. 如果不是架构师没必要了解原型模式，因为用不到；（apach.lang.util包；jdk实现了浅克隆；spring）
 #### 原型模式优点
-    1. 性能优良，java自带的原型模式，是基于内存的二进制流的拷贝，比直接new一个对象性能更高；
-    2. 可以使用深克隆方式保存对象的状态，使用原型模式将原对象复制一份并保存，简化了创建过程
+    *. 性能优良，java自带的原型模式，是基于内存的二进制流的拷贝，比直接new一个对象性能更高；
+    *. 可以使用深克隆方式保存对象的状态，使用原型模式将原对象复制一份并保存，简化了创建过程
 #### 原型模式的缺点
-     1. 必须配备克隆（或拷贝）方法
-     2. 当对已有类进行改造的时候，需要修改代码，违反了开闭原则；
-     3. 深拷贝，浅拷贝需要运用得当。
+     *. 必须配备克隆（或拷贝）方法
+     *. 当对已有类进行改造的时候，需要修改代码，违反了开闭原则；
+     *. 深拷贝，浅拷贝需要运用得当。
