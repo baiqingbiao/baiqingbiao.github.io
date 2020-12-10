@@ -23,9 +23,7 @@ public class Course {
     private String ppt;
     private String video;
     private String note;
-
     private String homework;
-
     @Override
     public String toString() {
         return "Course{" +
@@ -38,43 +36,42 @@ public class Course {
     }
 }
 ```
+
 然后，抽象出一个建造者出来：
+
 ```
 public interface ICourseBuilder {
     Course build();
 }
 ```
+
 实现它的build方法，并创建一些赋值方法：
+
 ```
 public class CourseBuilder implements ICourseBuilder{
     private Course course = new Course();
-
     public Course build() {
         return course;
     }
     public void addName(String name){
         course.setName(name);
     }
-
     public void addVideo(String video){
         course.setVideo(video);
     }
-
     public void addPpt(String ppt){
         course.setPpt(ppt);
     }
-
     public void addNote(String note){
         course.setNote(note);
     }
-
     public void addHomework(String homework){
         course.setHomework(homework);
     }
 }
 ```
 
-好了那么创建完之后，编写测试类：  
+好了那么创建完之后，编写测试类：
 
 ```
 public class Test {
@@ -85,13 +82,11 @@ public class Test {
         courseBuilder.addVideo("看视频");
         System.out.println( courseBuilder.build());
     }
-
 }
 ```
 
 执行结果：
 
-  
 ```
 Course{name='null', ppt='演讲', video='看视频', note='null', homework='写代码'}
 ```
@@ -110,22 +105,18 @@ public class CourseBuilder implements ICourseBuilder {
         course.setName(name);
         return this;
     }
-
     public CourseBuilder addVideo(String video){
         course.setVideo(video);
         return this;
     }
-
     public CourseBuilder addPpt(String ppt){
         course.setPpt(ppt);
         return this;
     }
-
     public CourseBuilder addNote(String note){
         course.setNote(note);
         return this;
     }
-
     public CourseBuilder addHomework(String homework){
         course.setHomework(homework);
         return this;
@@ -144,7 +135,6 @@ public class Test {
         .addVideo("看视频");
         System.out.println( courseBuilder.build());
     }
-
 }
 ```
 

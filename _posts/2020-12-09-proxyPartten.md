@@ -12,7 +12,7 @@ category: blog
 #### 生活中的代理模式
   * 房产中介；
   * 快递小哥；
-  * 黄牛党等等；
+  * 黄牛党等等；  
 常见的代理模式：SpringAOP；
 
 我们知道代理模式又分为静态代理和动态代理，那么他们又有什么区别和联系呢？  
@@ -66,6 +66,7 @@ public class Test {
 苏大强要求：肤白貌美大长腿
 已找到菜根花小宝贝
 ```
+
 那么这里看到，老爸实现了苏大强的需求，并且在这前后还做了一些其他操作；但是这里有一个问题，
 老爸的构造函数传的参数是苏大强，那么假设现在需求变了，不只有苏大强了，还有苏小弱，
 那么按照这种逻辑，这里苏小若的父亲是肯定会帮苏小弱找对象，但是苏大强的老爸不会去帮苏小弱。
@@ -75,11 +76,16 @@ public class Test {
 
 
 ##### 动态代理（动态声明被代理对象）：
+
 那么现在如何实现**动态代理**呢？目前JDK和CGLIB已经帮我们实现了；  
 相似点：利用底层逻辑通过字节码重组动态生成一个代理类，这个类只在内存中实现，与目标类在同一继承体系，
 这样在调用这个代理类的时候，会找到生成这个代理类的类的相同的方法，然会通过反射的机制，找到这个类的方法。
 在调用之前，做一些事情，在调用之后，做一些事情。
- 1. jdkProxy，修改增加jdk代理类：  
+
+  * jdkProxy
+  
+修改增加jdk代理类：
+ 
 ```
 public class JdkYuelao implements InvocationHandler {
     private IPerson target;
@@ -96,18 +102,17 @@ public class JdkYuelao implements InvocationHandler {
         after();
         return result;
     }
-
     private void after() {
         System.out.println("牵线成功");
     }
-
     private void before() {
         System.out.println("我是月老，已收集你的信息");
     }
 }
-
 ```
+
 改造测试类：
+
 ```
 public class Test {
     public static void main(String[] args) {
@@ -121,7 +126,9 @@ public class Test {
     }
 }
 ```
+
 执行俩人的结果：
+
 ```
 我是月老，已收集你的信息
 苏大强要求：肤白貌美大长腿
@@ -174,7 +181,9 @@ public class CglibYuelao implements MethodInterceptor {
     }
 }
 ```
+
 有需求的类(不需要实现任何接口)：
+
 ```
 public class SuDaqiang {
     public void findlove() {
@@ -182,12 +191,13 @@ public class SuDaqiang {
     }
 }
 ```
+
 调用：
+
 ```
 我是月老，已收集你的信息
 苏大强要求：肤白貌美大长腿
 牵线成功
-
 ```
 
 cglib的优点就是不需要用户有必要的前提条件，也就是说只要是一个class就好了；
