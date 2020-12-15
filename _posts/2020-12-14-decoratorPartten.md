@@ -197,5 +197,108 @@ public class ClientCake {
 
 **装饰器模式的特点就是一层套一层，可以重复叠加与扩展对象功能**
 
-优化系统日志为Json格式：  
-原先的格式：  
+优化系统日志为Json格式:  
+首先创建一个装饰器实现Logger的接口（以Slf4j的日志为例）（**这里的重点是创建一个有参构造方法（只有一个参数）**）：
+```
+public abstract class LoggerDeractor implements Logger {
+    protected Logger logger;
+
+    public LoggerDeractor(Logger logger) {
+        this.logger = logger;
+    }
+
+    public String getName() {
+        return null;
+    }
+......
+```
+装饰器的 字类（扩展功能）:
+```
+public class JsonLog extends LoggerDeractor{
+        public JsonLog(Logger logger) {
+            super(logger);
+        }
+
+        @Override
+        public void info(String s) {
+            JSONObject result = new JSONObject();
+            result.put("message",s);
+            logger.info(result.toString());
+        }
+
+    @Override
+    public void error(String s) {
+        JSONObject result = new JSONObject();
+        result.put("message",s);
+        logger.info(result.toString());
+    }
+
+    public void error(Exception e) {
+        JSONObject result = new JSONObject();
+        result.put("exception",e.getClass().getName());
+        logger.info(result.toString());
+    }
+
+    private JSONObject packageJsonResult(){
+        return new JSONObject();
+    }
+}
+```
+JsonLoggerFactory（便于调用）:
+```
+public class JsonFactoryLogger {
+    public static JsonLog getLogger(Class<?> clazz){
+        Logger logger = LoggerFactory.getLogger(clazz);
+        return new JsonLog(logger);
+    }
+}
+```
+测试：
+```
+public class Test {
+    //private static final Logger logger = LoggerFactory.getLogger(Test.class);
+    private static final Logger logger = JsonFactoryLogger.getLogger(Test.class);
+    public static void main(String[] args) {
+        logger.info("好巧");  
+    }
+}
+```
+执行结果:
+```
+[main] INFO src.decoratorPattern.LogTest.Test - {"message":"好巧"}
+```
+
+另外的几个非常常用的装饰器模式,有兴趣自己研究：
+```
+try{
+            InputStream inputStream = new FileInputStream("");
+            BufferedInputStream bfin = new BufferedInputStream(inputStream);
+            bfin.read();
+            bfin.close();
+
+            BufferedReader bf = new BufferedReader(new FileReader(""));
+            bf.readLine();
+            bf.close();
+
+            BufferedReader bs = new BufferedReader(new StringReader(""));
+            bs.readLine();
+            bs.close();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+```
+
+
+
+**装饰器模式和代理模式的对比**
+* 装饰器模式就是一种特殊的代理模式；
+* 装饰器模式强调自身的功能扩展，透明的扩展（用户看不到，但自己说了算），可动态定制的扩展；
+* 代理模式强调代理过程的控制；
+**装饰器模式的优点**
+* 装饰器是继承的有力补充，比继承灵活，不改变原有对象的情况下动态的对一个对象扩展功能，即插即用；
+* 通过使用不同装饰类以及这些装饰类的排列组合，可实现不同的效果；
+* 装饰器完全遵守开闭原则；
+**装饰器模式的缺点**
+* 会出现更多的代码，更多的类，增加程序复杂性；
+* 动态装饰时，多层装饰时会更复杂；
