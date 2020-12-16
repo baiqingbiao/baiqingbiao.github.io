@@ -88,7 +88,7 @@ public class TicketFactory {
 ```
 
 
-![类图](https://github.com/baiqingbiao/baiqingbiao.github.io/blob/master/images/designPattern/8-1.jpg)  
+![类图](/images/bootstrap/8-1.jpg)  
 
 享元模式重点在于他的结构，而不是创建对象；实际上与注册单例类似，但不同的是，
 注册单例key为class，从key上就决定了只能创建一个对象，而享元模式key为任意对象或类型
