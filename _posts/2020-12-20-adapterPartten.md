@@ -353,7 +353,7 @@ public class Test {
 那么现在分析一下，假设现在要扩展一个用抖音进行登录的方式，那么需要修改第三方接口IPassportForThird，实现类PassportAdapterForThird，新加抖音登录处理逻辑类；
 这个问题值得考虑一下。在Spring源码中处理得非常好，对外的是一个handler（AdvisorAdapter,HandlerAdapter）。
 
-![类图](/images/designPattern/10-1.jpg)  
+![类图](/images/designPattern/10-1.PNG)  
 
 **适配器模式的优点**
 * 能提高类的透明性和复用，现有的类复用但不需要改变；
