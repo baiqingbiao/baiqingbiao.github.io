@@ -5,7 +5,7 @@ description: designPatterns_11
 category: blog
 ---
 
-#### 组合模式的定义
+#### 桥接模式的定义
 桥接模式（Bridge Pattern）也成为桥梁模式、接口（interface）模式
 或柄体（handle and body）模式，是将抽象部分与它的具体实现部分分离，使他们都可以独立的变化。
 
@@ -193,6 +193,6 @@ public class Test {
 * 符合合成复用原则；
 * 符合开闭原则
 
-**组合模式缺点**
+**桥接模式缺点**
 * 增加了系统的理解与设计难度
 * 需要正确识别系统中两个独立变化的维度
