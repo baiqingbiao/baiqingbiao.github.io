@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>src.promotion.pay.payport.AliPay</OriginalElement>
+  <nodes>
+    <node x="537.5" y="274.0">src.promotion.pay.payport.Wechat</node>
+    <node x="690.3202711640212" y="421.0">src.promotion.pay.payport.PayStrategy</node>
+    <node x="752.5" y="274.0">src.promotion.pay.payport.JD_pay</node>
+    <node x="107.5" y="274.0">src.promotion.pay.payport.UnionPay</node>
+    <node x="108.92989417989423" y="652.0">src.promotion.pay.Test</node>
+    <node x="0.0" y="525.0">src.promotion.pay.Order</node>
+    <node x="322.5" y="274.0">src.promotion.pay.payport.AliPay</node>
+    <node x="605.2977843915344" y="104.0">src.promotion.pay.payport.Payment</node>
+    <node x="586.7977843915344" y="0.0">src.promotion.pay.ResultMsg</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.promotion.pay.Order" target="src.promotion.pay.ResultMsg">
+      <point x="-64.66666666666669" y="-38.5" />
+      <point x="32.333333333333314" y="500.0" />
+      <point x="78.6875" y="500.0" />
+      <point x="78.6875" y="79.0" />
+      <point x="613.1311177248679" y="79.0" />
+      <point x="-52.66666666666663" y="27.0" />
+    </edge>
+    <edge source="src.promotion.pay.Order" target="src.promotion.pay.payport.PayStrategy">
+      <point x="64.66666666666669" y="-38.5" />
+      <point x="161.66666666666669" y="500.0" />
+      <point x="748.3202711640212" y="500.0" />
+      <point x="-58.0" y="27.0" />
+    </edge>
+    <edge source="src.promotion.pay.payport.PayStrategy" target="src.promotion.pay.payport.Payment">
+      <point x="99.42857142857144" y="-27.0" />
+      <point x="905.7488425925926" y="401.0" />
+      <point x="980.0" y="401.0" />
+      <point x="980.0" y="224.0" />
+      <point x="832.1727843915344" y="224.0" />
+      <point x="105.875" y="50.0" />
+    </edge>
+    <edge source="src.promotion.pay.Order" target="src.promotion.pay.payport.Payment">
+      <point x="0.0" y="-38.5" />
+      <point x="97.0" y="224.0" />
+      <point x="620.4227843915344" y="224.0" />
+      <point x="-105.875" y="50.0" />
+    </edge>
+    <edge source="src.promotion.pay.payport.Payment" target="src.promotion.pay.ResultMsg">
+      <point x="60.5" y="-50.0" />
+      <point x="786.7977843915344" y="79.0" />
+      <point x="718.4644510582011" y="79.0" />
+      <point x="52.66666666666663" y="27.0" />
+    </edge>
+    <edge source="src.promotion.pay.payport.JD_pay" target="src.promotion.pay.payport.Payment">
+      <point x="0.0" y="-38.5" />
+      <point x="850.0" y="254.0" />
+      <point x="741.4227843915344" y="254.0" />
+      <point x="15.125" y="50.0" />
+    </edge>
+    <edge source="src.promotion.pay.Test" target="src.promotion.pay.payport.PayStrategy">
+      <point x="57.66666666666666" y="-27.0" />
+      <point x="253.0965608465609" y="627.0" />
+      <point x="864.3202711640212" y="627.0" />
+      <point x="58.0" y="27.0" />
+    </edge>
+    <edge source="src.promotion.pay.Test" target="src.promotion.pay.Order">
+      <point x="-57.66666666666666" y="-27.0" />
+      <point x="137.76322751322755" y="627.0" />
+      <point x="48.5" y="627.0" />
+      <point x="-48.5" y="38.5" />
+    </edge>
+    <edge source="src.promotion.pay.payport.AliPay" target="src.promotion.pay.payport.Payment">
+      <point x="0.0" y="-38.5" />
+      <point x="420.0" y="244.0" />
+      <point x="680.9227843915344" y="244.0" />
+      <point x="-45.375" y="50.0" />
+    </edge>
+    <edge source="src.promotion.pay.payport.UnionPay" target="src.promotion.pay.payport.Payment">
+      <point x="0.0" y="-38.5" />
+      <point x="205.0" y="234.0" />
+      <point x="650.6727843915344" y="234.0" />
+      <point x="-75.625" y="50.0" />
+    </edge>
+    <edge source="src.promotion.pay.payport.PayStrategy" target="src.promotion.pay.payport.JD_pay">
+      <point x="0.0" y="-27.0" />
+      <point x="806.3202711640212" y="371.0" />
+      <point x="850.0" y="371.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="src.promotion.pay.payport.PayStrategy" target="src.promotion.pay.payport.Wechat">
+      <point x="-33.14285714285711" y="-27.0" />
+      <point x="773.177414021164" y="381.0" />
+      <point x="635.0" y="381.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="src.promotion.pay.payport.PayStrategy" target="src.promotion.pay.payport.AliPay">
+      <point x="-66.28571428571422" y="-27.0" />
+      <point x="740.034556878307" y="391.0" />
+      <point x="420.0" y="391.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="src.promotion.pay.payport.PayStrategy" target="src.promotion.pay.payport.UnionPay">
+      <point x="-99.42857142857144" y="-27.0" />
+      <point x="706.8916997354497" y="401.0" />
+      <point x="205.0" y="401.0" />
+      <point x="0.0" y="38.5" />
+    </edge>
+    <edge source="src.promotion.pay.payport.Wechat" target="src.promotion.pay.payport.Payment">
+      <point x="0.0" y="-38.5" />
+      <point x="635.0" y="254.0" />
+      <point x="711.1727843915344" y="254.0" />
+      <point x="-15.125" y="50.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="529.8750000000001" y="432.0000000000001" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
