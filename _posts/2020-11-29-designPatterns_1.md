@@ -1,18 +1,22 @@
 ---
 layout: post
 title: 详解23种设计模式
-description: designPatterns_1
+description: designPatterns
 category: blog
 ---
 
-## <h2 id="directory">目录</h2>
+## <a id="directory">目录</a>
 
-[1. 工厂模式](#directory10)
+[1. 工厂模式](#directory1)
 
 [2. 单例模式](#directory2)
 
-[跳转一下](./bridgePartten)
-[跳转一下](./bridgePartten.md)
+[3. 原型模式](#directory3)
+
+[4. 建造者模式](../myfile/designPattern/builderPartten)
+
+[2. 单例模式](../myfile/designPattern/bridgePartten)
+
 
 
 
@@ -996,3 +1000,5 @@ false
      必须配备克隆（或拷贝）方法  
      当对已有类进行改造的时候，需要修改代码，违反了开闭原则；  
      深拷贝，浅拷贝需要运用得当。  
+	 
+[回到目录](#directory)
