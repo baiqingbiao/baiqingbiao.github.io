@@ -15,7 +15,7 @@ category: blog
 
 
 
-## <h2 id="directory1">工厂模式</h2>
+## <a id="directory1">工厂模式</a>
 
 ### 软件设计模式作为软件架构的内功心法，想必也是一门必修基础知识，了解与学习也要趁早，今天起就来学习一下。
 #### 首先来看第一节，工厂模式，其中工厂模式又分为三种：
@@ -347,4 +347,5 @@ public class Test {
 * 产品等级，同一个继承体系；
 
 
-## <h2 id="directory2">测试</h2>
+## <h2 id="directory333">测试</h2>
+## <a id="directory2">测试</a>
