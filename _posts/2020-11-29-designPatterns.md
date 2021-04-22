@@ -13,17 +13,9 @@ category: blog
 
 [3. 原型模式](#directory3)
 
-[4. 建造者模式](./builderPartten)
+[4. 建造者模式](/123123/jvm)
 
-[2. 单例模式](../myfile/designPattern/bridgePartten)
 
-[4. 建造者模式](./builderPartten.md)
-
-[2. 单例模式](../myfile/designPattern/bridgePartten.md)
-
-[2. 单例模式](../../myfile/designPattern/bridgePartten)
-
-[2. 单例模式](../../myfile/designPattern/bridgePartten.md)
 
 
 
