@@ -1,15 +1,15 @@
 ---
 layout: post
-title: 详解23种设计模式之--------（1）工厂模式
+title: 详解23种设计模式
 description: designPatterns_1
 category: blog
 ---
 
 ## <h2 id="directory">目录</h2>
 
-[1. 工厂模式](#directory1)
+[1. 工厂模式](#directory10)
 
-[2. 测试](#directory2)
+[2. 单例模式](#directory2)
 
 
 
@@ -327,7 +327,6 @@ public class Test {
 }
 ```
 
-[回到“主要内容”](#jump)
 
 #### 总结：
 + 以上就是抽象工厂的一个综合，虽然他的产品结构变得更加复杂，但其符合类的单一职责原则；<br>
@@ -346,6 +345,651 @@ public class Test {
 * 产品族，一系列的相关的产品，整合到一起有关联性；
 * 产品等级，同一个继承体系；
 
+[回到目录](#directory)
 
-## <h2 id="directory333">测试</h2>
-## <a id="directory2">测试</a>
+## <a id="directory2">单例模式</a>
+
+#### 定义
+  * 确保一个类在任何情况下都只有一个实例，并提供一个全局访问点；
+  * 隐藏其所有的构造方法；
+  * 属于创建型模式;  
+#### 单例模式的适用场景
+  * 确保任何情况下都只有一个实例;  
+#### 单例模式的常见写法
+  * 饿汉式单例;
+  * 懒汉式单例;
+  * 注册时单例;
+  * ThreadLocal单例;  
+#### 饿汉式单例  
+```
+ /**
+  *优点：性能高、执行效率高、没有任何锁
+  *缺点：某些情况下，可能会造成内存浪费
+  */
+ public class HungrySingleton{
+    private static HungrySingleton hungrySingleton = new HungrySingleton();
+    private HungrySingleton(){}
+    public static HungrySingleton getInstance(){return hungrySingleton}
+ }
+```
+ 另一种写法：  
+```
+  /**
+  *先静态后动态
+  *先上，后下
+  *先属性，后方法
+  */
+  public class HungrySingleton{
+    private static HungrySingleton hungrySingleton;
+    //装个B，和上面一样
+    static{
+       hungrySingleton = new HungrySingleton()
+    }
+       private HungrySingleton(){
+    }
+    public static HungrySingleton getInstance(){
+       return hungrySingleton
+    }
+ }
+```  
+    造成内存浪费的缺点怎那么解决：
+#### 懒汉式单例    
+```
+  /**
+  *优点：节省内存
+  *缺点：可能会线程不安全（多个线程同时判断实例为空，同时new，这时候就创建了多个实例，可使用多线程测试）
+  */
+ public class LazySimpleSingleton{
+    private static LazySimpleSingleton instance;//初始化不赋值,不占内存空间
+    private LazySimpleSingleton();
+    
+    public static LazySimpleSingleton getInstance(){
+        if(instance == null){
+            instance = new LazySimpleSingleton();
+        }
+        return instance;
+    }
+ }
+```
+*这是个测试案例*  
+创建一个类实现多线程，打印出当前线程获得的实例hashcode值：
+```
+public class SingletonMoreThread implements Runnable{
+    @Override
+    public void run() {
+        Singleton singleton = Singleton.getInstance();
+        System.out.println(Thread.currentThread().getName() + ":" + singleton);
+    }
+}
+```
+编写测试类：
+```
+public class SingletonTest {
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new SingletonMoreThread());
+        Thread thread2 = new Thread(new SingletonMoreThread());
+        thread1.start();
+        thread2.start();
+        System.out.println("end");
+    }
+}
+```
+通过调试线程，发现有三种情况：
+    1. 实例相同，自始至终都是第一个实例；
+    2. 实例相同，第二个把第一个覆盖掉了（此时都进入了判断，创建了两个实例，但都未打印）；
+    3. 实例不相同，创建了两个；
+那么这个时候，2和3就是不安全的了，如何解决这个问题呢，就要使用线程锁：
+
+
+```
+ public class LazySimpleSingleton{
+    private static LazySimpleSingleton instance;
+    private LazySimpleSingleton();
+    
+    public synchronized static LazySimpleSingleton getInstance(){
+        if(instance == null){
+            instance = new LazySimpleSingleton();
+        }
+        return instance;
+    }
+ }
+```
+
+优点：节省了内存的消耗，保证了线程安全  
+缺点：性能低，受到了限制  
+问题：如何解决synchronized关键字的性能问题?  
+
+优化一下，在里面排队：
+```
+ public class LazySimpleSingleton{
+    private static LazySimpleSingleton instance;
+    private LazySimpleSingleton();
+    
+    public static LazySimpleSingleton getInstance(){
+        synchronized(LazySimpleSingleton.class){
+            if(instance == null){
+                instance = new LazySimpleSingleton();
+            }
+        }
+        return instance;
+    }
+ }
+```
+深度优化一下，实例为空在阻塞：
+```
+ public class LazySimpleSingleton{
+    private static LazySimpleSingleton instance;
+    private LazySimpleSingleton();
+    
+    public static LazySimpleSingleton getInstance(){
+        if(instance == null){
+            synchronized(LazySimpleSingleton.class){
+                instance = new LazySimpleSingleton();
+            }
+        }
+        return instance;
+    }
+ }
+```
+注意，此时做个骚操作，线程1和2同时进入实例为空的判断内部，发现还是new了两个实例，所以这种方式没用。  
+所以还需要再加一个判断：
+```
+ public class LazySimpleSingleton{
+    private static LazySimpleSingleton instance;//①
+    private LazySimpleSingleton();
+    
+    public static LazySimpleSingleton getInstance(){
+        if(instance == null){
+            synchronized(LazySimpleSingleton.class){
+                if(instance == null){
+                    instance = new LazySimpleSingleton();//②
+                    //指令重排序
+                }
+            }
+        }
+        return instance;
+    }
+ }
+```
+这就是双重检查法，问题解决了，同时也会提高性能。  
+但是这里还有一个问题：指令重排序的问题：  
+在线程的执行环境中，有一定的随机性，线程会不断的抢cpu时间片，同时有几个操作，  
+第一个是分配实例的内存地址②，  
+第二个是分配变量的内存地址①，即①变量还要指向②的地址（指针），  
+实际这时候就创建了两个内存地址，而这两个地址创建的时候就会出现一个先后问题，会造成线程紊乱，所以此时要加volatile关键字：
+```
+ public class LazySimpleSingleton{
+    private volatile static LazySimpleSingleton instance;//①
+    private LazySimpleSingleton();
+    
+    public static LazySimpleSingleton getInstance(){
+        if(instance == null){
+            synchronized(LazySimpleSingleton.class){
+                if(instance == null){
+                    instance = new LazySimpleSingleton();//②
+                    //指令重排序
+                }
+            }
+        }
+        return instance;
+    }
+ }
+```
+折腾了半天问题终于解决了，有的问题更是来回折腾，说白了，就是程序的可读性非常差，可以说不够优雅。那么，如何来进行优化呢？
+可能我们心中一直在找寻一种完美的解决方案，所以就有了第三者的出现：  
+利用静态内部类（与静态变量相比，静态变量是加载时就分配内存空间，而静态内部类是在你用的时候分配）
+如下：  
+```
+
+/**
+ * SingletonBetter.class(类加载一开始只会扫描这个类，而在调用SingletonBetter类中的getInstance方法时再去加载内部类SingletonHolder.class)
+ * SingletonBetter$SingletonHolder.class
+ * 利用java语法，实现延迟加载
+ *
+ * 优点：  1.写法优雅
+ *         2.利用java本身的语法特点
+ *         3.性能高，避免内存浪费
+ * 缺点：能够被反射破坏
+ */
+public class SingletonBetter {
+
+    private SingletonBetter(){}
+    public  static SingletonBetter getInstance(){
+        return SingletonHolder.instance;
+    }
+
+    private static class SingletonHolder{
+        private static final SingletonBetter instance = new SingletonBetter();
+    }
+}
+```
+当然这种方式发现也有缺点，那么用该如何选择，这时候就用到了找对象法则，首先如果能接受ta的缺点，那么你就用，ta就是你的，因为其他人都只接受ta的优点。
+待续。。。
+
+这个问题官方的解决方式：  
+    注册史单例，最优雅的解决方式：枚举类型的单例，已加入此判断，有兴趣自查。
+	
+[回到目录](#directory)
+
+## <a id="directory3">原型模式</a>
+
+#### 原型模式的定义：
+  * 原型模式（ProtoType Pattern）是指原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象；
+  * 调用者不需要知道任何创建细节，不调用构造函数；
+  * 属于创建型模式；  
+关键信息：不是通过new，而是通过一个方法去创建实例，这个方法会拷贝并保留原先的值。
+
+例：顶层抽象（带有clone方法）
+```
+public interface IProtoTypePattern<T> {
+    T clone();
+}
+
+```
+实体类：
+```
+public class ConcreteProtoyype implements IProtoTypePattern{
+    private int age;
+    private String name;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public ConcreteProtoyype clone() {
+        ConcreteProtoyype concreteProtoyype = new ConcreteProtoyype();
+        concreteProtoyype.setAge(this.age);
+        concreteProtoyype.setName(this.name);
+        return concreteProtoyype;
+    }
+
+    @Override
+    public String toString() {
+        return "ConcreteProtoyype{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+```
+客户端调用：
+```
+public class Client {
+    public static void main(String[] args) {
+        //创建原型对象
+        ConcreteProtoyype concreteProtoyype = new ConcreteProtoyype();
+        concreteProtoyype.setAge(18);
+        concreteProtoyype.setName("huyawen");
+        System.out.println(concreteProtoyype);
+
+        //拷贝原型对象
+        ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.clone();
+        System.out.println(concreteProtoyype1);
+    }
+}
+```
+执行结果：
+```
+ConcreteProtoyype{age=18, name='huyawen'}
+ConcreteProtoyype{age=18, name='huyawen'}
+```
+
+##### 原型模式的适用场景：
+ * 类初始化消耗资源过多；
+ * new 产生一个对象的过程非常繁琐的过程（数据准备，访问权限等）；
+ * 构造函数比较复杂；
+ * 循环体中创建多个对象时；
+ 
+ 其中原型模式又分为浅克隆和深克隆：
+##### 1. 浅克隆：实现Cloneable接口：
+ 
+   
+```
+@Data
+public class ConcreteProtoyype implements Cloneable{
+    private int age;
+    private String name;
+    private List<String> hobbies;
+
+    @Override
+    public ConcreteProtoyype clone() {
+        try {
+            return (ConcreteProtoyype)super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "ConcreteProtoyype{" +
+                "age=" + age +
+                ", name='" + name + '\'' +
+                ", hobbies=" + hobbies +
+                '}';
+    }
+}
+```
+客户端调用：
+```
+public class Client {
+    public static void main(String[] args) {
+        //创建原型对象
+        ConcreteProtoyype concreteProtoyype = new ConcreteProtoyype();
+        concreteProtoyype.setAge(18);
+        concreteProtoyype.setName("huyawen");
+        List<String> hobbies = new ArrayList<String>();
+        hobbies.add("吃");
+        hobbies.add("睡");
+        hobbies.add("拉屎");
+        concreteProtoyype.setHobbies(hobbies);
+        System.out.println(concreteProtoyype);
+
+        //拷贝原型对象
+        ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.clone();
+        concreteProtoyype1.getHobbies().add("学习");
+        System.out.println(concreteProtoyype1);
+    }
+}
+```
+这时候的输出：
+```
+ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎]}
+ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
+
+```
+未发现异常，拷贝原型对象之后再看一下原型对象有没有发生变化：
+```
+public class Client {
+    public static void main(String[] args) {
+        //创建原型对象
+        ConcreteProtoyype concreteProtoyype = new ConcreteProtoyype();
+        concreteProtoyype.setAge(18);
+        concreteProtoyype.setName("huyawen");
+        List<String> hobbies = new ArrayList<String>();
+        hobbies.add("吃");
+        hobbies.add("睡");
+        hobbies.add("拉屎");
+        concreteProtoyype.setHobbies(hobbies);
+
+        //拷贝原型对象
+        ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.clone();
+        concreteProtoyype1.getHobbies().add("学习");
+        System.out.println("原型对象："+concreteProtoyype);
+        System.out.println("克隆对象："+concreteProtoyype1);
+        System.out.println(concreteProtoyype == concreteProtoyype1);
+
+        System.out.println("原型对象的爱好：" + concreteProtoyype.getHobbies());
+        System.out.println("克隆对象的爱好：" + concreteProtoyype1.getHobbies());
+        System.out.println(concreteProtoyype.getHobbies() == concreteProtoyype1.getHobbies());
+    }
+}
+```
+执行结果：
+```
+原型对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
+克隆对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
+false
+原型对象的爱好：[吃, 睡, 拉屎, 学习]
+克隆对象的爱好：[吃, 睡, 拉屎, 学习]
+true
+```
+这时候发现原型对象发生了变化，但是仔细观察，克隆对象和原型对象并不是一个对象，那么为什么会随着变化呢?  
+接着看对象的爱好地址是相同的，这时候就说明浅克隆的一个问题：对基本数据类型或String类型等类型可以使用，对引用型数据类型拷贝的是对象地址，而不是具体的元素。
+这时候就要应用到了：  
+##### 2. 深克隆
+  通过序列化和反序列化实现的方式，遵循里氏替换原则；  
+  增加方法（记得实现Serializable接口，否则会抛出序列化异常）：
+```
+    public ConcreteProtoyype deepClone() {
+        try{
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(this);
+
+            ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+            ObjectInputStream ois = new ObjectInputStream(bis);
+            return (ConcreteProtoyype)ois.readObject();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+```
+客户端直接调用：
+```
+public class Client {
+    public static void main(String[] args) {
+        //创建原型对象
+        ConcreteProtoyype concreteProtoyype = new ConcreteProtoyype();
+        concreteProtoyype.setAge(18);
+        concreteProtoyype.setName("huyawen");
+        List<String> hobbies = new ArrayList<String>();
+        hobbies.add("吃");
+        hobbies.add("睡");
+        hobbies.add("拉屎");
+        concreteProtoyype.setHobbies(hobbies);
+
+        //拷贝原型对象
+        ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.deepClone();
+        concreteProtoyype1.getHobbies().add("学习");
+        System.out.println("原型对象："+concreteProtoyype);
+        System.out.println("克隆对象："+concreteProtoyype1);
+        System.out.println(concreteProtoyype == concreteProtoyype1);
+
+        System.out.println("原型对象的爱好：" + concreteProtoyype.getHobbies());
+        System.out.println("克隆对象的爱好：" + concreteProtoyype1.getHobbies());
+        System.out.println(concreteProtoyype.getHobbies() == concreteProtoyype1.getHobbies());
+    }
+}
+```
+打印结果：
+```
+原型对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎]}
+克隆对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
+false
+原型对象的爱好：[吃, 睡, 拉屎]
+克隆对象的爱好：[吃, 睡, 拉屎, 学习]
+false
+```
+可以看到这次符合了期望值，克隆对象的引用类型发生了变化，而原型对象还是原来那个。  
+更好的实现方式：Json字符串反序列化方式。  
+引发的问题：  
+    1. 性能问题、占用I/O、安全性；
+    2. 破坏单例：
+例子：创建饿汉式单例：
+```
+public static ConcreteProtoyype instance = new ConcreteProtoyype();
+    private ConcreteProtoyype(){}
+
+    public static ConcreteProtoyype getInstance(){
+        return instance;
+    }
+```
+调用：
+```
+public class Client {
+    public static void main(String[] args) {
+        //创建原型对象
+        ConcreteProtoyype concreteProtoyype = ConcreteProtoyype.getInstance();
+        concreteProtoyype.setAge(18);
+        concreteProtoyype.setName("huyawen");
+        List<String> hobbies = new ArrayList<String>();
+        hobbies.add("吃");
+        hobbies.add("睡");
+        hobbies.add("拉屎");
+        concreteProtoyype.setHobbies(hobbies);
+
+        //拷贝原型对象
+        ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.deepClone();
+        concreteProtoyype1.getHobbies().add("学习");
+        System.out.println("原型对象："+concreteProtoyype);
+        System.out.println("克隆对象："+concreteProtoyype1);
+        System.out.println(concreteProtoyype == concreteProtoyype1);
+
+        System.out.println("原型对象的爱好：" + concreteProtoyype.getHobbies());
+        System.out.println("克隆对象的爱好：" + concreteProtoyype1.getHobbies());
+        System.out.println(concreteProtoyype.getHobbies() == concreteProtoyype1.getHobbies());
+    }
+}
+```
+打印：
+```
+原型对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎]}
+克隆对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
+false
+原型对象的爱好：[吃, 睡, 拉屎]
+克隆对象的爱好：[吃, 睡, 拉屎, 学习]
+false
+```
+发现这里两个对象不同，所以单例被破坏了。。。那么如何解决？  
+  * 不实现Cloneable接口；（注意：**单例模式不能实现Cloneable接口**）
+    
+```
+  @Override
+    public ConcreteProtoyype clone() {
+        return instance;
+    }
+```
+ 此时又变回了原型模式，没错，**原型和单例本身就是冲突的！！**，这种理论客观上就不存在。。
+ 作为一名架构师，要考虑代码的风险，要规避任何可能发生的情况，要防患于未来！
+ 有兴趣可以看一下JDK源码中的  
+ArrayListClone方式：
+```
+     public Object clone() {
+        try {
+            ArrayList var1 = (ArrayList)super.clone();
+            var1.elementData = Arrays.copyOf(this.elementData, this.size);
+            var1.modCount = 0;
+            return var1;
+        } catch (CloneNotSupportedException var2) {
+            throw new InternalError(var2);
+        }
+    }
+```
+```
+     public static <T> T[] copyOf(T[] original, int newLength) {
+        return (T[]) copyOf(original, newLength, original.getClass());
+    }
+```
+```
+     public static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
+        @SuppressWarnings("unchecked")
+        T[] copy = ((Object)newType == (Object)Object[].class)
+            ? (T[]) new Object[newLength]
+            : (T[]) Array.newInstance(newType.getComponentType(), newLength);
+        System.arraycopy(original, 0, copy, 0,
+                         Math.min(original.length, newLength));
+        return copy;
+    }
+```
+ 
+HashMap：
+```
+     public Object clone() {
+        HashMap var1;
+        try {
+            var1 = (HashMap)super.clone();
+        } catch (CloneNotSupportedException var3) {
+            throw new InternalError(var3);
+        }
+
+        var1.reinitialize();
+        var1.putMapEntries(this, false);
+        return var1;
+    }
+```
+```
+     void reinitialize() {
+        this.table = null;
+        this.entrySet = null;
+        this.keySet = null;
+        this.values = null;
+        this.modCount = 0;
+        this.threshold = 0;
+        this.size = 0;
+    }
+ ```
+ ```
+     final void putMapEntries(Map<? extends K, ? extends V> var1, boolean var2) {
+        int var3 = var1.size();
+        if (var3 > 0) {
+            if (this.table == null) {
+                float var4 = (float)var3 / this.loadFactor + 1.0F;
+                int var5 = var4 < 1.07374182E9F ? (int)var4 : 1073741824;
+                if (var5 > this.threshold) {
+                    this.threshold = tableSizeFor(var5);
+                }
+            } else if (var3 > this.threshold) {
+                this.resize();
+            }
+
+            Iterator var8 = var1.entrySet().iterator();
+
+            while(var8.hasNext()) {
+                Entry var9 = (Entry)var8.next();
+                Object var6 = var9.getKey();
+                Object var7 = var9.getValue();
+                this.putVal(hash(var6), var6, var7, false, var2);
+            }
+        }
+    }
+```
+ 用这种方式改造一下我们的代码：
+```
+     public ConcreteProtoyype deepCloneHobbies() {
+        try{
+            ConcreteProtoyype result = (ConcreteProtoyype)super.clone();
+            result.hobbies = (List) ((ArrayList)result.hobbies).clone();
+            return result;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+```
+ 客户端调用：
+```
+ ConcreteProtoyype concreteProtoyype1  = concreteProtoyype.deepCloneHobbies();
+```
+ 结果：
+ 
+```
+原型对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎]}
+克隆对象：ConcreteProtoyype{age=18, name='huyawen', hobbies=[吃, 睡, 拉屎, 学习]}
+false
+原型对象的爱好：[吃, 睡, 拉屎]
+克隆对象的爱好：[吃, 睡, 拉屎, 学习]
+false
+```
+
+### 总结
+
+   只要是Cloneable接口下的都是浅克隆：ArrayList看似为深克隆，假设ArrayList里有引用类型呢？  
+    怎么做才能实现深克隆：  
+           序列化  
+           转Json  
+    如果不是架构师没必要了解原型模式，因为用不到；（apach.lang.util包；jdk实现了浅克隆；spring）  
+#### 原型模式优点  
+
+    性能优良，java自带的原型模式，是基于内存的二进制流的拷贝，比直接new一个对象性能更高；  
+    可以使用深克隆方式保存对象的状态，使用原型模式将原对象复制一份并保存，简化了创建过程  
+#### 原型模式的缺点
+
+     必须配备克隆（或拷贝）方法  
+     当对已有类进行改造的时候，需要修改代码，违反了开闭原则；  
+     深拷贝，浅拷贝需要运用得当。  

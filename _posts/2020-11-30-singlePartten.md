@@ -5,6 +5,9 @@ description: designPatterns_2
 category: blog
 ---
 
+## <a id="directory10">工厂模式</a>
+
+
 ### 单例模式
 #### 定义
   * 确保一个类在任何情况下都只有一个实例，并提供一个全局访问点；
