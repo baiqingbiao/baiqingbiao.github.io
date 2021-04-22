@@ -11,7 +11,7 @@ category: blog
 
 [2. 单例模式](#directory2)
 
-[跳转一下](./2020-12-21-bridgePartten.md)
+[跳转一下](./bridgePartten)
 [跳转一下](./bridgePartten.md)
 
 
