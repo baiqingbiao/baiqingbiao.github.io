@@ -13,7 +13,7 @@ category: blog
 
 [3. 原型模式](#directory3)
 
-[4. 建造者模式](../myfile/designPattern/builderPartten)
+[4. 建造者模式](./builderPartten)
 
 [2. 单例模式](../myfile/designPattern/bridgePartten)
 
