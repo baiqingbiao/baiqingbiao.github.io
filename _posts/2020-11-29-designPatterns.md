@@ -7,8 +7,10 @@ category: blog
 
 ## <a id="directory">目录</a>
 
-[跳转到建造者](#jianzaozhe)  
-[跳转到建造者](#jianzaozhe)
+[跳转到建造者](./builderPartten/#jianzaozhe)  
+[跳转到建造者](././#jianzaozhe)
+
+[跳转到建造者](./builderPartten)
 
 [回到目录](#directory)
 
