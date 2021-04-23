@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（5）代理模式
 description: designPatterns_5
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 代理模式的定义
   * 代理模式（Proxy Partten），是指为其它用户提供一种代理，以控制对这个对象的访问；
