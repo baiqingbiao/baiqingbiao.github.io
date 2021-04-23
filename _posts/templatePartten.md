@@ -5,6 +5,8 @@ description: designPatterns_13
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 模板方法模式的定义
 * 模板方法模式（Template Method Pattern）通常又叫模板模式，是指定义一个算法的骨架，并允许子类为其中的一个
 或多个提供实现；

@@ -5,6 +5,8 @@ description: designPatterns_8
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 享元模式的定义
 享元模式（Flyweight Pattern）又称为轻量级模式，是对象池的一种实现。类似于线程池，线程池可以避免不停的
 创建和销毁多个对象，消耗性能；提供了减少对象数量从而改善应用所需的对象结构的方式，消耗性能。

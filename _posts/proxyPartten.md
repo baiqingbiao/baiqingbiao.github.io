@@ -5,6 +5,8 @@ description: designPatterns_5
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 代理模式的定义
   * 代理模式（Proxy Partten），是指为其它用户提供一种代理，以控制对这个对象的访问；
   * 代理对象在客户端和目标对象之间起到中介作用；

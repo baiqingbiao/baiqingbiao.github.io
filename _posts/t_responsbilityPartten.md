@@ -5,6 +5,8 @@ description: designPatterns_15
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 责任链模式的定义
 * 责任链模式（Chain Of Responsibility Pattern）是将每一个节点看作是一个对象每个节点处理的请求均不同,且内部自动维护
 一个下一节点对象.当一个请求从链式的首段发出时,会沿着链的路径依次传递给每一个节点对象,直至有对象处理这个请求为止；

@@ -5,6 +5,8 @@ description: designPatterns_10
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 适配器模式的定义
 适配器模式（Adapter Pattern）又称为变压器模式，顾名思义，它的功能是将一个类的接口变成客户端所期望的另一种接口，
 从而使原本接口不匹配而导致无法在一起工作的两个类能够一起工作；

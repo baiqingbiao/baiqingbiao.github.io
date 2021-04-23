@@ -5,6 +5,8 @@ description: designPatterns_9
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 组合模式的定义
 组合模式（Composite Pattern）非常常见的一种设计模式，又称为轻量级模式，也成为整体-部分模式（Part-Whole），
 它的宗旨是通过将单个对象（叶子节点）和组合对象（树枝节点）用相同的接口进行表示。  

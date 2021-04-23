@@ -5,6 +5,7 @@ description: designPatterns_7
 category: blog
 ---
 
+[回到目录](#directory)
 
 **装饰器模式的定义**
 * 装饰器模式（Decorator Pattern）也叫做包装模式（Wrapper Pattern），是指在不改变原有对象的基础上，将功能附加到对象上，提供了比继承更有

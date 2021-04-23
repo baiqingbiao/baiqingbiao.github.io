@@ -7,19 +7,25 @@ category: blog
 
 ## <a id="directory">目录</a>
 
-[1. 工厂模式](#directory1)
-
-[2. 单例模式](#directory2)
-
-[3. 原型模式](#directory3)
-
-[4. 建造者模式](/123123/jvm)
-
-
-
-
-
-
+[1. 工厂模式](#directory1)  
+[2. 单例模式](#directory2)  
+[3. 原型模式](#directory3)  
+[4. 建造者模式](./builderPartten)  
+[5. 代理模式](./proxyPartten)  
+[6. 门面模式](./facadePartten)  
+[7. 装饰器模式](./decoratorPartten)  
+[8. 享元模式](./flyweightPartten)  
+[9. 组合模式](./compositePartten)  
+[10. 适配器模式](./adapterPartten)  
+[11. 桥接模式](./bridgePartten)  
+[12. 委派模式](./delegatePartten)  
+[13. 模板方法模式](./templatePartten)  
+[14. 策略模式](./srtategyPartten)  
+[15. 责任链模式](./t_responsbilityPartten)  
+[16. 迭代器模式](./IteraterPartten)  
+[17. 命令模式](./CommandPartten)  
+[18. 状态模式](./29)  
+[19-23. 备忘录模式、中介者模式、解释器模式、观察者模式、访问者模式](./30)  
 
 
 ## <a id="directory1">工厂模式</a>

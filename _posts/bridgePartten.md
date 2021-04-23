@@ -5,6 +5,8 @@ description: designPatterns_11
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 桥接模式的定义
 桥接模式（Bridge Pattern）也成为桥梁模式、接口（interface）模式
 或柄体（handle and body）模式，是将抽象部分与它的具体实现部分分离，使他们都可以独立的变化。

@@ -4,6 +4,7 @@ title: 详解23种设计模式之--------（4）建造者模式
 description: designPatterns_4
 category: blog
 ---
+[回到目录](#directory)
 
 #### 建造者模式的定义
   * 建造者模式（Builder Partten），是将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示；

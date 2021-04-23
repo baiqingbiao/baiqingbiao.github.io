@@ -5,6 +5,8 @@ description: designPatterns_12
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 委派模式的定义
 * 委派模式（Delegate Pattern）也成为委托模式，他的基本作用就是负责任务的调度和任务分配，将任务的分配和
 执行分离开来，可以看作是一种特殊情况下的静态代理的全权代理；

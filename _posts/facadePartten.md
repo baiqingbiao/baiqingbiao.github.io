@@ -5,6 +5,8 @@ description: designPatterns_6
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 门面模式的定义
   * 门面模式（Facade Partten），又叫外观模式，提供了一个统一的接口，用来访问子系统中的一群接口；
   * 特征：门面模式定义了一个高层接口，让子系统更容易使用；

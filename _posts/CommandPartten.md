@@ -5,6 +5,8 @@ description: designPatterns_17
 category: blog
 ---
 
+[回到目录](#directory)
+
 #### 命令模式的定义
 * 命令模式（Command Pattern）是对命令的封装，每一个命令都是一个操作，请求的一方发出请求要求执行一个操作
 接受的一方接收到请求，并执行操作；
