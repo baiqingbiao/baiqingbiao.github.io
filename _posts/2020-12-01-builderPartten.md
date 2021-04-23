@@ -1,3 +1,7 @@
+---
+title: 详解23种设计模式
+description: designPatterns
+---
 
 [回到目录](#directory)
 
