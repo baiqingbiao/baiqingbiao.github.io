@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（15）责任链模式
 description: designPatterns_15
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 责任链模式的定义
 * 责任链模式（Chain Of Responsibility Pattern）是将每一个节点看作是一个对象每个节点处理的请求均不同,且内部自动维护

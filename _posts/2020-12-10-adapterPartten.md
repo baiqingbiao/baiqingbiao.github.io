@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（10）适配器模式
 description: designPatterns_10
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 适配器模式的定义
 适配器模式（Adapter Pattern）又称为变压器模式，顾名思义，它的功能是将一个类的接口变成客户端所期望的另一种接口，

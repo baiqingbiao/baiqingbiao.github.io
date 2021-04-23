@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（12）委派模式
 description: designPatterns_12
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 委派模式的定义
 * 委派模式（Delegate Pattern）也成为委托模式，他的基本作用就是负责任务的调度和任务分配，将任务的分配和

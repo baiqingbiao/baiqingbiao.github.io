@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（14）策略模式
 description: designPatterns_14
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 策略模式的定义
 * 策略模式（Srtategy Pattern）通常又叫政策（Policy Pattern）模式，它是将定义的算法家族，分别封装起来，让他们之间可以互相替换

@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（16）迭代器模式
 description: designPatterns_16
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 迭代器模式的定义
 * 迭代器模式（Iterater Pattern）又称游标模式，它提供一种顺序访问集合/容器对象元素的方法，而又无需暴露集合内部表示；

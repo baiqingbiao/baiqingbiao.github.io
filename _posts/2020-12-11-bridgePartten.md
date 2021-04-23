@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（11）桥接模式
 description: designPatterns_11
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 桥接模式的定义
 桥接模式（Bridge Pattern）也成为桥梁模式、接口（interface）模式

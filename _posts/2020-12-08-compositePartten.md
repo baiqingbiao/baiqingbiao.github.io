@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（9）组合模式
 description: designPatterns_9
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 组合模式的定义
 组合模式（Composite Pattern）非常常见的一种设计模式，又称为轻量级模式，也成为整体-部分模式（Part-Whole），

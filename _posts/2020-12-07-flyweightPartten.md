@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（8）享元模式
 description: designPatterns_8
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns#directory)
 
 #### 享元模式的定义
 享元模式（Flyweight Pattern）又称为轻量级模式，是对象池的一种实现。类似于线程池，线程池可以避免不停的

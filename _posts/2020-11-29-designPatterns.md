@@ -7,13 +7,6 @@ category: blog
 
 ## <a id="directory">目录</a>
 
-[跳转到建造者](./builderPartten/#jianzaozhe)  
-[跳转到建造者](././#jianzaozhe)
-
-[跳转到建造者](./builderPartten)
-
-[回到目录](#directory)
-
 [1. 工厂模式](#directory1)  
 [2. 单例模式](#directory2)  
 [3. 原型模式](#directory3)  
