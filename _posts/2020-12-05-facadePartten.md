@@ -2,10 +2,9 @@
 layout: post
 title: 详解23种设计模式之--------（6）门面模式
 description: designPatterns_6
-category: blog
 ---
 
-[回到目录](#directory)
+[回到目录](./designPatterns/#directory)
 
 #### 门面模式的定义
   * 门面模式（Facade Partten），又叫外观模式，提供了一个统一的接口，用来访问子系统中的一群接口；
