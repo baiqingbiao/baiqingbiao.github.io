@@ -1,7 +1,7 @@
 ---
+layout: post
 title: 详解23种设计模式之--------（3）原型模式
 description: designPatterns_3
-category: blog
 ---
 
 

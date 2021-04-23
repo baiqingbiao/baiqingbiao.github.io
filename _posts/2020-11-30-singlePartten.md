@@ -1,7 +1,6 @@
 ---
 title: 详解23种设计模式之--------（2）单例模式
 description: designPatterns_2
-category: blog
 ---
 
 ## <a id="directory10">工厂模式</a>
