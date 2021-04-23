@@ -1,9 +1,4 @@
----
-layout: post
-title: 详解23种设计模式之--------（4）建造者模式
-description: designPatterns_4
-category: blog
----
+
 [回到目录](#directory)
 
 ## <a id="jianzaozhe">来了</a>
